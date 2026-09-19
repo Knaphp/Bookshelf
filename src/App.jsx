@@ -1059,25 +1059,23 @@ export default function App() {
             onBack={() => setView({ type: "collection", id: s.collectionId })}
             title={s.title}
             meta={s.genre || ""}
-            secondary={
+            actions={
               <>
-                <div className="topbar-secondary-group">
-                  {TYPES.map((tp) => (
-                    <button
-                      key={tp.key}
-                      className={`status-pill${s.type === tp.key ? " active" : ""}`}
-                      style={s.type === tp.key ? { background: tp.bg, color: tp.fg } : {}}
-                      onClick={() => setSeriesType(s.id, tp.key)}
-                    >
-                      {tp.label}
-                    </button>
-                  ))}
-                </div>
-                <div className="topbar-secondary-group">
-                  <button className="icon-btn" title="แก้ไข" onClick={() => { setEditingSeries(s); setShowSeriesModal(true); }}><Pencil size={15} /></button>
-                  <DeleteSeriesButton seriesId={s.id} onDelete={deleteSeries} />
-                  <button className="btn-primary" onClick={() => setShowVolumeModal(true)}><Plus size={15} /> เพิ่มเล่ม</button>
-                </div>
+                {TYPES.map((tp) => (
+                  <button
+                    key={tp.key}
+                    className={`status-pill${s.type === tp.key ? " active" : ""}`}
+                    style={s.type === tp.key ? { background: tp.bg, color: tp.fg } : {}}
+                    onClick={() => setSeriesType(s.id, tp.key)}
+                  >
+                    {tp.label}
+                  </button>
+                ))}
+                <button className="icon-btn" title="แก้ไข" onClick={() => { setEditingSeries(s); setShowSeriesModal(true); }}><Pencil size={15} /></button>
+                <DeleteSeriesButton seriesId={s.id} onDelete={deleteSeries} />
+                <button className="btn-primary" onClick={() => setShowVolumeModal(true)}>
+                  <Plus size={15} /> <span className="btn-text">เพิ่มเล่ม</span>
+                </button>
               </>
             }
           />
