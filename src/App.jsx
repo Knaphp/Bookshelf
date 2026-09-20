@@ -1359,14 +1359,15 @@ function CollectionView({ collection, seriesList, volumeCount, volumesDesc, sear
             const k = row.length;
             const isFull = k === cols;
             let rowCardsWidth, itemWidth, plankWidth;
+            const fullRowWidth = cols * SHELF_CARD_W + (cols - 1) * gap;
             if (isDesktop) {
-              rowCardsWidth = isFull ? cols * SHELF_CARD_W + (cols - 1) * gap : k * SHELF_CARD_W + (k - 1) * gap;
+              rowCardsWidth = isFull ? fullRowWidth : k * SHELF_CARD_W + (k - 1) * gap;
               itemWidth = SHELF_CARD_W;
-              plankWidth = rowCardsWidth;
+              plankWidth = fullRowWidth;
             } else {
               rowCardsWidth = "100%";
               itemWidth = `calc((100% - ${(cols - 1) * gap}px) / ${cols})`;
-              plankWidth = isFull ? "100%" : `calc((${k}/${cols}*100%) - ${(gap * (cols - k)) / cols}px)`;
+              plankWidth = "100%";
             }
             return (
               <div className="shelf-row" key={ri}>
