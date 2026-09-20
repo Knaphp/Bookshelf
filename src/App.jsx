@@ -142,6 +142,7 @@ html, body { background: var(--bg); margin: 0; }
 }
 .topbar-meta { font-size: 14px; color: var(--ink-soft); font-weight: 500; white-space: nowrap; }
 .topbar-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+.topbar-type-toggle { display: flex; align-items: center; gap: 10px; }
 .topbar-secondary {
   display: flex;
   align-items: center;
@@ -747,6 +748,7 @@ html, body { background: var(--bg); margin: 0; }
   .topbar-title-line { gap: 10px; min-width: 0; flex: 1; }
   .topbar-actions { gap: 6px; }
   .topbar-actions .btn-text { display: none; }
+  .topbar-type-toggle { display: none; }
   .topbar-actions .btn-primary { padding: 8px 9px; }
   .topbar .search-box { max-width: none; min-width: 0; padding: 8px 12px; }
   .topbar .search-box input { min-width: 0; }
@@ -1061,16 +1063,18 @@ export default function App() {
             meta={s.genre || ""}
             actions={
               <>
-                {TYPES.map((tp) => (
-                  <button
-                    key={tp.key}
-                    className={`status-pill${s.type === tp.key ? " active" : ""}`}
-                    style={s.type === tp.key ? { background: tp.bg, color: tp.fg } : {}}
-                    onClick={() => setSeriesType(s.id, tp.key)}
-                  >
-                    {tp.label}
-                  </button>
-                ))}
+                <div className="topbar-type-toggle">
+                  {TYPES.map((tp) => (
+                    <button
+                      key={tp.key}
+                      className={`status-pill${s.type === tp.key ? " active" : ""}`}
+                      style={s.type === tp.key ? { background: tp.bg, color: tp.fg } : {}}
+                      onClick={() => setSeriesType(s.id, tp.key)}
+                    >
+                      {tp.label}
+                    </button>
+                  ))}
+                </div>
                 <button className="icon-btn" title="แก้ไข" onClick={() => { setEditingSeries(s); setShowSeriesModal(true); }}><Pencil size={15} /></button>
                 <DeleteSeriesButton seriesId={s.id} onDelete={deleteSeries} />
                 <button className="btn-primary" onClick={() => setShowVolumeModal(true)}>
