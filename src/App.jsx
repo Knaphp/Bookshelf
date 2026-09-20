@@ -239,7 +239,11 @@ html, body { background: var(--bg); margin: 0; }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 26px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   cursor: pointer;
 }
@@ -255,7 +259,7 @@ html, body { background: var(--bg); margin: 0; }
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 32px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   overflow: hidden;
   border: 1px solid var(--border);
 }
