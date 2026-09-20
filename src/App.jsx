@@ -749,7 +749,13 @@ html, body { background: var(--bg); margin: 0; }
   .topbar-actions { gap: 6px; }
   .topbar-actions .btn-text { display: none; }
   .topbar-type-toggle { display: none; }
-  .topbar-actions .btn-primary { padding: 8px 9px; }
+  .topbar-actions .btn-primary,
+  .topbar-actions .btn-outline {
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    justify-content: center;
+  }
   .topbar .search-box { max-width: none; min-width: 0; padding: 8px 12px; }
   .topbar .search-box input { min-width: 0; }
   .topbar-title-line.search-active .topbar-title { display: none; }
@@ -1017,8 +1023,8 @@ export default function App() {
           title="ชั้นหนังสือของฉัน"
           actions={
             <>
-              <button className="btn-outline" onClick={() => setShowSyncModal(true)}><Smartphone size={15} /> ซิงค์อุปกรณ์</button>
-              <button className="btn-primary" onClick={() => { setEditingCollection(null); setShowAddCollection(true); }}><Plus size={16} /> ชั้นใหม่</button>
+              <button className="btn-outline" onClick={() => setShowSyncModal(true)}><Smartphone size={15} /> <span className="btn-text">ซิงค์อุปกรณ์</span></button>
+              <button className="btn-primary" onClick={() => { setEditingCollection(null); setShowAddCollection(true); }}><Plus size={16} /> <span className="btn-text">ชั้นใหม่</span></button>
             </>
           }
         />
