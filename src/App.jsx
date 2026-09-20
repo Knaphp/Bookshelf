@@ -259,7 +259,7 @@ html, body { background: var(--bg); margin: 0; }
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 32px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   overflow: hidden;
   border: 1px solid var(--border);
 }
@@ -267,7 +267,7 @@ html, body { background: var(--bg); margin: 0; }
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 10px;
+  padding: 6px;
   box-sizing: border-box;
 }
 .collection-card-actions {
@@ -338,8 +338,8 @@ html, body { background: var(--bg); margin: 0; }
   font-weight: 600;
   font-size: 19px;
   color: var(--ink);
-  margin: 0 0 3px;
-  line-height: 1.3;
+  margin: 0 0 1px;
+  line-height: 1.2;
 }
 .collection-count { font-size: 13.5px; color: var(--ink-soft); }
 .card-del {
