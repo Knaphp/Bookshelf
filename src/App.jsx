@@ -775,6 +775,9 @@ html, body { background: var(--bg); margin: 0; }
   .collection-count { font-size: 11px; }
 
   .series-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .shelf-row { margin-bottom: 22px; }
+  .shelf-row:last-child { margin-bottom: 6px; }
+  .shelf-plank { height: 12px; margin-top: 6px; border-radius: 5px; }
   .cover { padding: 6px; }
   .cover-title { font-size: 9.5px; }
   .type-pill { font-size: 9px; padding: 2px 7px; bottom: 5px; left: 5px; }
@@ -1338,10 +1341,10 @@ function CollectionView({ collection, seriesList, volumeCount, volumesDesc, sear
     .filter((s) => s.title.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => (b.lastOpened || 0) - (a.lastOpened || 0));
 
+  const cols = isDesktop ? 6 : 4;
+  const gap = isDesktop ? SHELF_GAP : 10;
   const rows = [];
-  if (isDesktop) {
-    for (let i = 0; i < filtered.length; i += 6) rows.push(filtered.slice(i, i + 6));
-  }
+  for (let i = 0; i < filtered.length; i += cols) rows.push(filtered.slice(i, i + cols));
 
   return (
     <div>
@@ -1350,13 +1353,24 @@ function CollectionView({ collection, seriesList, volumeCount, volumesDesc, sear
           <h3>{search ? "ไม่พบเรื่องที่ค้นหา" : "ยังไม่มีหนังสือในชั้นนี้"}</h3>
           <p>{search ? "ลองค้นหาด้วยคำอื่น" : "กดปุ่ม “เพิ่มหนังสือ” เพื่อเริ่มเก็บเล่มแรก"}</p>
         </div>
-      ) : isDesktop ? (
+      ) : (
         <div className="shelf-rows">
           {rows.map((row, ri) => {
-            const rowWidth = row.length * SHELF_CARD_W + (row.length - 1) * SHELF_GAP;
+            const k = row.length;
+            const isFull = k === cols;
+            let rowCardsWidth, itemWidth, plankWidth;
+            if (isDesktop) {
+              rowCardsWidth = isFull ? cols * SHELF_CARD_W + (cols - 1) * gap : k * SHELF_CARD_W + (k - 1) * gap;
+              itemWidth = SHELF_CARD_W;
+              plankWidth = rowCardsWidth;
+            } else {
+              rowCardsWidth = "100%";
+              itemWidth = `calc((100% - ${(cols - 1) * gap}px) / ${cols})`;
+              plankWidth = isFull ? "100%" : `calc((${k}/${cols}*100%) - ${(gap * (cols - k)) / cols}px)`;
+            }
             return (
               <div className="shelf-row" key={ri}>
-                <div className="shelf-row-cards" style={{ width: rowWidth }}>
+                <div className="shelf-row-cards" style={{ width: rowCardsWidth, gap }}>
                   {row.map((s) => (
                     <SeriesCard
                       key={s.id}
@@ -1365,20 +1379,14 @@ function CollectionView({ collection, seriesList, volumeCount, volumesDesc, sear
                       confirmingId={confirmingId}
                       trigger={trigger}
                       onOpenSeries={onOpenSeries}
-                      style={{ width: SHELF_CARD_W, flexShrink: 0 }}
+                      style={{ width: itemWidth, flexShrink: 0 }}
                     />
                   ))}
                 </div>
-                <div className="shelf-plank" style={{ width: rowWidth }} />
+                <div className="shelf-plank" style={{ width: plankWidth }} />
               </div>
             );
           })}
-        </div>
-      ) : (
-        <div className="series-grid">
-          {filtered.map((s) => (
-            <SeriesCard key={s.id} series={s} volumesDesc={volumesDesc} confirmingId={confirmingId} trigger={trigger} onOpenSeries={onOpenSeries} />
-          ))}
         </div>
       )}
     </div>
